@@ -1,0 +1,7 @@
+[package]
+name = "mean-median-mode"
+version = "0.1.0"
+authors = ["PJ Kim <pj.kim@kakaocorp.com>"]
+edition = "2018"
+
+[dependencies]
