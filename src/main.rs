@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::io::{self, prelude::*};
 
 // Given a list of integers,
@@ -26,9 +27,14 @@ fn main() {
             .collect();
 
         let mean = nums.iter().sum::<i32>() as f32 / nums.len() as f32;
-        let median = get_median(&nums);
 
-        println!("numbers: {:?}, mean: {}, median: {}", nums, mean, median);
+        println!(
+            "numbers: {:?}, mean: {}, median: {}, mode: {}",
+            nums,
+            mean,
+            get_median(&nums),
+            get_mode(&nums)
+        );
     }
 }
 
@@ -43,4 +49,13 @@ fn get_median(v: &Vec<i32>) -> f32 {
         return *vec.get(vec.len() / 2).unwrap() as f32;
     }
     return (*vec.get(vec.len() / 2 - 1).unwrap() + *vec.get(vec.len() / 2).unwrap()) as f32 / 2.0;
+}
+
+fn get_mode(v: &Vec<i32>) -> i32 {
+    let mut map = HashMap::new();
+    for num in v {
+        let count = map.entry(num).or_insert(0);
+        *count += 1;
+    }
+    return **map.iter().max_by_key(|(_, v)| *v).unwrap().0;
 }
